@@ -4,10 +4,10 @@ require "stringex"
 
 ## -- Rsync Deploy config -- ##
 # Be sure your public key is listed in your server's ~/.ssh/authorized_keys file
-ssh_user       = "user@domain.com"
-ssh_port       = "22"
-document_root  = "~/website.com/"
-rsync_delete   = false
+ssh_user       = "mschinz"
+ssh_port       = "9922"
+document_root  = "~/martin.schinz.de/blog"
+rsync_delete   = true
 rsync_args     = ""  # Any extra arguments to pass to rsync
 deploy_default = "rsync"
 
@@ -16,7 +16,7 @@ deploy_branch  = "gh-pages"
 
 ## -- Misc Configs -- ##
 
-public_dir      = "public"    # compiled site directory
+public_dir      = "public/blog"    # compiled site directory
 source_dir      = "source"    # source file directory
 blog_index_dir  = 'source'    # directory for your blog's index page (if you put your index in source/blog/index.html, set this to 'source/blog')
 deploy_dir      = "_deploy"   # deploy directory (for Github pages deployment)
