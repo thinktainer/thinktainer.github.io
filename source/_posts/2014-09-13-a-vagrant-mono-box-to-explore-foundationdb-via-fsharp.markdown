@@ -1,12 +1,10 @@
 ---
 layout: post
-title: "A Vagrant mono box to explore FoundationDB via FSharp"
+title: "A Vagrant mono box to explore FSharp on linux"
 date: 2014-09-13 16:15:41 +0100
 comments: true
 categories: vagrant fsharp mono foundationdb
 ---
-
-# A box to explore F# on linux
 
 Today I am sharing a ubuntu-64 trusty [Vagrant](http://www.vagrantup.com)
 [box](https://vagrantcloud.com/thinktainer/boxes/trusty64-vmw-fsharp-foundationdb)
