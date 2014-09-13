@@ -29,7 +29,7 @@ a developer would have needed to compile the runtime environment herself, in
 order to get a recent version on her machine (in a non-standard installation
 folder).  Obviously with the advent of [Xamarin](http://xamarin.com)'s great
 cross platform tools and those being based on the mono runtime things have
-started looking up a lot since.
+started looking up a lot since then.
 
 ## Microsoft wants us to use their languages and tools
 
@@ -41,7 +41,7 @@ Xamarin apps. Another area where Microsoft is leaving the comfort zone of
 Windows and actively seeking cross platform support by their framework is
 [ASP.NET vNEXT](http://www.asp.net/vnext).  Again this may be useful for
 Microsoft if they manage to get people onto their cloud platform by offering a
-broader bandwith of choices, but in my opinion it is to early to tell if this is
+broader bandwith of choices, but in my opinion it is too early to tell if this is
 in fact a vaible assumption. Regardless of what we are able to observe now, I
 believe that Microsoft's cross platform efforts are going to be a great
 investment in the long run, as it will make their services and potentially
