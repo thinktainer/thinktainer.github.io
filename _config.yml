@@ -2,7 +2,7 @@
 #      Main Configs       #
 # ----------------------- #
 
-url: http://blog.thinktainer.com
+url: http://thinktainer.github.io
 title: Braindump
 subtitle: A place to keep my thoughts
 author: Martin Schinz
@@ -64,7 +64,7 @@ default_asides: [asides/recent_posts.html, asides/github.html, asides/delicious.
 # ----------------------- #
 
 # Github repositories
-github_user:
+github_user: thinktainer
 github_repo_count: 0
 github_show_profile_link: true
 github_skip_forks: true
