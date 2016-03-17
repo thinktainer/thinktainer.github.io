@@ -14,14 +14,15 @@ categories:
 
 ## The problem
 
-I want to run a windows virtual machine inside my arch linux development
-laptop, in order to be able to run Microsoft's [Visual
-Studio](https://visualstudio.com), which I used to enjoy using massively in the
-past, particularly in combination with Jetbrains' Resharper. Recently I have
-gravitated more towards a lighter stack, preferring [F#](http://fsharp.org) over
-C#. The tooling required to do the same kind of work in F# is much less than in
-C# (depending on use case of course), and I have always favoured an approach
-that lets me code using a text editor.
+I want to run a windows virtual machine inside my [arch
+linux](https://www.archlinux.org/) development laptop, in order to be able to
+run Microsoft's [Visual Studio](https://visualstudio.com), which I used to enjoy
+using massively in the past, particularly in combination with Jetbrains'
+[Resharper](https://www.jetbrains.com/resharper/). Recently I have gravitated
+more towards a lighter stack, preferring [F#](http://fsharp.org) over C#. The
+tooling required to do the same kind of work in F# is much less than in C#
+(depending on use case of course), and I have always favoured an approach that
+lets me code using a text editor.
 
 Enough rambling, so for this particular scenario I need VisualStudio, and by
 extension Windows. I am going to go with Windows Server 2012 r2, as i find the
@@ -31,30 +32,32 @@ running Windows Server doesn't limit me in any way.
 
 ## The options for virtualization
 
-Considering the options, it basically boils down to Hardware-assisted
-virtualization versus Full virtualization (Vmware, Parallels, etc). I have long
-been on a mac as my main box, and have often felt the slowdown incurred by Full
-virtualization solutions, so being on a shiny Arch Linux box, it was an easy
-decision to go with Hardware-assisted (hvm).
+Considering the options, it basically boils down to [Hardware-assisted
+virtualization](https://en.wikipedia.org/wiki/Hardware-assisted_virtualization)
+versus [Full virtualization](https://en.wikipedia.org/wiki/Full_virtualization)
+(Vmware, Parallels, etc). I have long been on a Mac as my main box, and have
+often felt the slowdown incurred by Full virtualization solutions, so being on a
+shiny Arch Linux box, it was an easy decision to go with Hardware-assisted
+(hvm).
 
-The choice then is between xen and kvm, but I think the preparation for the xen
-environment is a lot more intrusive than the kvm option. I also found a recent
-performance
+The choice then is between [xen](http://xenproject.org/) and
+[kvm](http://www.linux-kvm.org/page/Main_Page), but I think the preparation for
+the xen environment is a lot more intrusive than the kvm option. I also found a
+recent performance
 [comparison](https://major.io/2014/06/22/performance-benchmarks-kvm-vs-xen/)
 that essentially showed no major performance difference between the
-technologies.  _Bring on the flame wars in the comments ;-)_
-
+technologies.  _Bring on the flame wars in the comments ;-)_ 
 So kvm it is going to be for me.
 
 ## Installation
 
-Installing the required couldn't be easier given arch's excellent package
-manager. `sudo pacman -S qemu` brings all the required bits onto my machine,
-and looking through the installation instructions in the arch wiki shows that I
-already have all the required kernel modules on my machine. So far (I'm 2 months
-in) the experience on arch with regards to package quality and packages being up
-to date has been absolutely brilliant, so I'm still in my honey moon with this
-distro.
+Installing the required packages couldn't be easier given arch's excellent
+package manager. `sudo pacman -S qemu` brings all the required bits onto my
+machine, and looking through the installation instructions in the arch wiki
+shows that I already have all the required kernel modules on my machine. So far
+(I'm 2 months in) the experience on arch with regards to package quality and
+packages being up to date has been absolutely brilliant, so I'm still in my
+honey moon with this distro.  
 
 ## Networking
 
@@ -160,6 +163,4 @@ performance and stability of the set up.
 This is all, I hope someone finds this useful, I'm mainly leaving it here for
 myself, to be able to repeat this in the future. Comments (particularly
 alternatives for the networknig) are very welcome.
-
-
 
