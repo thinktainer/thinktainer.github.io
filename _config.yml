@@ -33,6 +33,7 @@ destination: public
 plugins: plugins
 code_dir: downloads/code
 category_dir: blog/categories
+category_title_prefix: "Category: "
 markdown: rdiscount
 rdiscount:
   extensions:
@@ -70,7 +71,7 @@ github_show_profile_link: true
 github_skip_forks: true
 
 # Twitter
-twitter_user:
+twitter_user: mschinz
 twitter_tweet_button: true
 
 # Google +1
