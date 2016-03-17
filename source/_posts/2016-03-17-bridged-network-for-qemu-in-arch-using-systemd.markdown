@@ -38,11 +38,11 @@ virtualization solutions, so being on a shiny Arch Linux box, it was an easy
 decision to go with Hardware-assisted (hvm).
 
 The choice then is between xen and kvm, but I think the preparation for the xen
-environment is a lot more intrusive than the kvm option. I also found a [recent
+environment is a lot more intrusive than the kvm option. I also found a recent
 performance
-comparison](https://major.io/2014/06/22/performance-benchmarks-kvm-vs-xen/) that
-essentially showed no major performance difference between the technologies.
-_Bring on the flame wars in the comments ;-)_
+[comparison](https://major.io/2014/06/22/performance-benchmarks-kvm-vs-xen/)
+that essentially showed no major performance difference between the
+technologies.  _Bring on the flame wars in the comments ;-)_
 
 So kvm it is going to be for me.
 
