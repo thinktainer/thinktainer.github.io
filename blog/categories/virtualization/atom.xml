@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Virtualization | Braindump]]></title>
+  <link href="http://thinktainer.github.io/blog/categories/virtualization/atom.xml" rel="self"/>
+  <link href="http://thinktainer.github.io/"/>
+  <updated>2017-02-11T19:38:22+00:00</updated>
+  <id>http://thinktainer.github.io/</id>
+  <author>
+    <name><![CDATA[Martin Schinz]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA['Bridged Network for Qemu in Arch Using Systemd']]></title>
+    <link href="http://thinktainer.github.io/2016/03/17/bridged-network-for-qemu-in-arch-using-systemd/"/>
+    <updated>2016-03-17T14:55:40+00:00</updated>
+    <id>http://thinktainer.github.io/2016/03/17/bridged-network-for-qemu-in-arch-using-systemd</id>
+    <content type="html"><![CDATA[<h2>The problem</h2>
+
+<p>I want to run a windows virtual machine inside my <a href="https://www.archlinux.org/">arch
+linux</a> development laptop, in order to be able to
+run Microsoft&rsquo;s <a href="https://visualstudio.com">Visual Studio</a>, which I used to enjoy
+using massively in the past, particularly in combination with Jetbrains'
+<a href="https://www.jetbrains.com/resharper/">Resharper</a>. Recently I have gravitated
+more towards a lighter stack, preferring <a href="http://fsharp.org">F#</a> over C#. The
+tooling required to do the same kind of work in F# is much less than in C#
+(depending on use case of course), and I have always favoured an approach that
+lets me code using a text editor.</p>
+
+<p>Enough rambling, so for this particular scenario I need VisualStudio, and by
+extension Windows. I am going to go with Windows Server 2012 r2, as i find the
+server Windows versions to be generally more amenable to running in a
+virtualised environment. I also don&rsquo;t care much for news or music in a vm, so
+running Windows Server doesn&rsquo;t limit me in any way.</p>
+
+<h2>The options for virtualization</h2>
+
+<p>Considering the options, it basically boils down to <a href="https://en.wikipedia.org/wiki/Hardware-assisted_virtualization">Hardware-assisted
+virtualization</a>
+versus <a href="https://en.wikipedia.org/wiki/Full_virtualization">Full virtualization</a>
+(Vmware, Parallels, etc). I have long been on a Mac as my main box, and have
+often felt the slowdown incurred by Full virtualization solutions, so being on a
+shiny Arch Linux box, it was an easy decision to go with Hardware-assisted
+(hvm).</p>
+
+<p>The choice then is between <a href="http://xenproject.org/">xen</a> and
+<a href="http://www.linux-kvm.org/page/Main_Page">kvm</a>, but I think the preparation for
+the xen environment is a lot more intrusive than the kvm option. I also found a
+recent performance
+<a href="https://major.io/2014/06/22/performance-benchmarks-kvm-vs-xen/">comparison</a>
+that essentially showed no major performance difference between the
+technologies.  <em>Bring on the flame wars in the comments ;-)</em>
+So kvm it is going to be for me.</p>
+
+<h2>Installation</h2>
+
+<p>Installing the required packages couldn&rsquo;t be easier given arch&rsquo;s excellent
+package manager. <code>sudo pacman -S qemu</code> brings all the required bits onto my
+machine, and looking through the installation instructions in the arch wiki
+shows that I already have all the required kernel modules on my machine. So far
+(I&rsquo;m 2 months in) the experience on arch with regards to package quality and
+packages being up to date has been absolutely brilliant, so I&rsquo;m still in my
+honey moon with this distro.</p>
+
+<h2>Networking</h2>
+
+<p>Here be dragons :-)</p>
+
+<p>Considering the options for the network it becomes evident that there two ways
+about it:</p>
+
+<ul>
+<li>The fully integrated solution, that makes it really easy on the user, by
+effectively creating vlans and bridges in the kvm / qemu stack, and hiding
+that completely from the user. This solution doesn&rsquo;t allow to have an
+optimised interface in the guest, and as a result of that is slower than the
+other solutions.</li>
+<li>The bridged networking version, which pushes most of the management complexity
+onto the user, but provides the benefit of a virtio interface, that maps the
+io directly to the host, and is much faster as a result.</li>
+</ul>
+
+
+<p>Thinking <em>how hard can it be</em> I decide to take a stab at the bridged networking
+option. Now this is a bit of a pain on a laptop, if you want the guest os
+(windows in my case) to be able to call out to the network. This is a solid
+requirement in my case, for being able to get windows updates, etc.</p>
+
+<p>The reason it is difficult is that wireless interfaces in linux don&rsquo;t allow
+bridging on the kernel network stack (promiscuous mode), which means that they
+can&rsquo;t be slaved to the bridge.</p>
+
+<p>The alternative is to create a bridge device and forward the guest&rsquo;s traffic via
+network address translation (NAT), to the wifi interface, using the linux
+firewall (iptables).</p>
+
+<p>Having NetworkManager as my main mechanism for connecting to wifi (I find the
+gui way a bit easier than arch&rsquo;s preferred netctl), I need to come up with a way
+of making the bridge start on system startup, and when I start the vm for the
+interface to attach to the bridge. The attaching bit is pretty much handled for
+me in recent versions of kvm, where I can give it a flag with a bridge
+interface, and it will handle the rest.</p>
+
+<p>So I decide to buy into the brave new world that is systemd, and think I&rsquo;ll be
+able to use this knowledge in the future, as that behemoth seems to not stop for
+anything, and given the engineering power behind it, I would be surprised to see
+it go away any time soon.</p>
+
+<h3>Create the bridge, and start on system startup</h3>
+
+<p>To create the bridge device I add the file</p>
+
+<p><code>/etc/systemd/network/qbr0.netdev</code>:
+{% gist 45a09a798026a7b6a147 etc-systemd-network-qbr0.netdev %}</p>
+
+<p>For it&rsquo;s network configuration I add:</p>
+
+<p><code>/etc/systemd/network/qbr0.network</code>
+{% gist 45a09a798026a7b6a147 etc-systemd-network-qbr0.network %}</p>
+
+<p>In order to enable the network part of systemd I need to enable the
+systemd-networkd daemon. <code>systemctl enable systemd-networkd</code>. Simple enough.</p>
+
+<h3>Allow qemu to connect to the bridge</h3>
+
+<p>In order for qemu to be allowed to use the bridge I add the file
+<code>/etc/qemu/bridge.conf</code>, containing only the line: <code>allow qbr0</code>.</p>
+
+<h3>Add dnsmasq to provide ip&rsquo;s to guests</h3>
+
+<p>In order for the guests to be able to receive ip&rsquo;s I add dnsmasq to serve ips on
+the bridge device.</p>
+
+<p>I add the configuration file: <code>/etc/dnsmasq-qbr0.conf</code> (apologies for top level
+folder, this is all still a bit rough around the edges).</p>
+
+<p>{% gist 45a09a798026a7b6a147 etc-dnsmasq-qbr0.conf %}</p>
+
+<p>Note the assignment of the fixed ip, this is so that I can reliably rdp to the
+same instance without having to go down the dns route.</p>
+
+<p>I also add a service to systemd, to make this start up on system start (adding
+dependencies to the network service to have started before):
+<code>/etc/systemd/system/dnsmasq-qbr0.service</code></p>
+
+<p>{% gist 45a09a798026a7b6a147 etc-systemd-dnsmasq-qbr0.service %}</p>
+
+<h3>Adding a start script for the kvm instance</h3>
+
+<p>Finally I modify <a href="http://ubuntuforums.org/showthread.php?t=2289210&amp;p=13334367#post13334367">a
+script</a>
+from the ubuntu forums by the awesome okky-htf, shout out, couldn&rsquo;t have done it
+without you!</p>
+
+<p>This is what I run to start the vm:</p>
+
+<p>{% gist 45a09a798026a7b6a147 start.sh %}</p>
+
+<p>I have set up rdp in the guest, hence the graphics are disabled at the bottom.
+For the initial installation plus boot the start up order needs to be changed,
+and the drives for the cd iso&rsquo;s need to be enabled.</p>
+
+<p>I use this script to rdp into the instance, and am very happy with the
+performance and stability of the set up.</p>
+
+<p>{% gist 45a09a798026a7b6a147 connect.sh %}</p>
+
+<p>This is all, I hope someone finds this useful, I&rsquo;m mainly leaving it here for
+myself, to be able to repeat this in the future. Comments (particularly
+alternatives for the networknig) are very welcome.</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: 
+
+Sitemap: http://thinktainer.github.io/sitemap.xml 

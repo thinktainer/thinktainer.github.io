@@ -1,0 +1,334 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>A Vagrant Mono Box to Explore FSharp on Linux - Braindump</title>
+  <meta name="author" content="Martin Schinz">
+
+  
+  <meta name="description" content="Today I am sharing a ubuntu-64 trusty Vagrant
+box
+in order to make it easy to get started with mono development on linux. tl;dr vagrant init &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://thinktainer.github.io/2014/09/13/a-vagrant-mono-box-to-explore-foundationdb-via-fsharp/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Braindump" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-49983907-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Braindump</a></h1>
+  
+    <h2>A place to keep my thoughts</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="thinktainer.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">A Vagrant Mono Box to Explore FSharp on Linux</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-09-13T16:15:41+01:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>13</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>4:15 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Today I am sharing a ubuntu-64 trusty <a href="http://www.vagrantup.com">Vagrant</a>
+<a href="https://vagrantcloud.com/thinktainer/boxes/trusty64-vmw-fsharp-foundationdb">box</a>
+in order to make it easy to get started with mono development on linux.</p>
+
+<p><strong>tl;dr</strong> <code>vagrant init thinktainer/trusty64-vmw-fsharp-foundationdb</code></p>
+
+<h2>Why I think it matters</h2>
+
+<p>I have recently become a big fan of Microsofts ML language
+<a href="http://www.fsharp.org">FSharp</a>. In my opinion one of the things that is holding
+wider adoption of it back is the lack of a good cross platform story, like what
+for instance <a href="http://clojure.org">clojure</a> or <a href="https://www.java.com/en/">java</a>
+have to offer. <em>Minor niggle here, about the story for ruby and python on
+Windows being far from great too.</em> One thing that has traditionally been painful
+is the fact that the <a href="http://www.mono-project.com">mono</a> runtime was a bit of a
+pain to get recent packages for. Without @tpokorras efforts with his high
+quality mono-opt packages for all major linux flavours it would have meant
+a developer would have needed to compile the runtime environment herself, in
+order to get a recent version on her machine (in a non-standard installation
+folder).  Obviously with the advent of <a href="http://xamarin.com">Xamarin</a>&rsquo;s great
+cross platform tools and those being based on the mono runtime things have
+started looking up a lot since then.</p>
+
+<h2>Microsoft wants us to use their languages and tools</h2>
+
+<p>I am convinced that the current trend for using linux as a .NET host is going to
+gain even more momentum. Microsoft may be interested in such a development due
+to the fact that Xamarin&rsquo;s cross platform story is a great way to channel people
+down to the Azure platform as the cloud provider of the services for these
+Xamarin apps. Another area where Microsoft is leaving the comfort zone of
+Windows and actively seeking cross platform support by their framework is
+<a href="http://www.asp.net/vnext">ASP.NET vNEXT</a>.  Again this may be useful for
+Microsoft if they manage to get people onto their cloud platform by offering a
+broader bandwith of choices, but in my opinion it is too early to tell if this is
+in fact a vaible assumption. Regardless of what we are able to observe now, I
+believe that Microsoft&rsquo;s cross platform efforts are going to be a great
+investment in the long run, as it will make their services and potentially
+devices more appealing to a wider audience of developers.</p>
+
+<h2>FSharp is the ugly duckling at Microsoft</h2>
+
+<p>Microsoft has one of if not the best solution for developing object orientated
+software on a vm, namely
+<a href="http://en.wikipedia.org/wiki/C_Sharp_(programming_language">CSharp</a>).  It has
+been widely adopted by the public sector and the enterprise. For hobbyists and
+&lsquo;recreational programmers&rsquo; not so much, at least that I&rsquo;m aware of. A great
+amount of resource at Microsoft is dedicated to the advancement, refinement and
+marketing of this tooling, and rightly so.</p>
+
+<p>The story for FSharp at Microsoft is different. One example where Microsoft was
+marketing C# and to an extent C++ and javascript was the
+<a href="http://www.buildwindows.com">Build</a> conference in 2014. During the whole
+conference there was not one single talk about F#. The tooling and integration
+support for using F# leaves a developer wanting in a number of places. The most
+obvious one in my opinion is that one has to ship the latest FSharp.Core
+libraries as a compiled artifact when trying to host applications using them in
+azure. These are windows boxes maintained by Microsoft, so it strikes me as odd
+that the F# framework on these boxes is not the latest version available to
+developers. There are more areas like sponsoring where Microsoft is hardly
+visible when it comes to promoting F#. I find it hard to find reasons for why F#
+is being left in the background to this extent. I am entertaining two possible
+explanations, which are both purely speculative and quite absurd.</p>
+
+<h2>This is great for the open source movement</h2>
+
+<p>Due to the relative apathy of Microsoft in regards to engaging with the
+community around FSharp, the community prospers. There is a number of problems
+that have been solved by the FSharp open source community in a manner of great
+technical excellence. Examples of this would be the number of highly useful type
+providers, data analysis solutions and parsers.</p>
+
+<p>The core language is open source, and accepting contributions from the
+community. This is big news for a language that was developed under the umbrella
+of a big corporate like Microsoft. Under the vision of Don Syme, who is not only
+the father of F#, but also responsible for some of the key features that make C#
+so attractive I believe there is a bright future for the language ahead.</p>
+
+<p>The lack of percievable involvement from Microsoft in the current affairs of the
+language makes it more palatable to people who feel an ingrained antipathy for
+whatever reasons for the company. There is a great number of fantastic
+programmers in this group, and it is a highly desirable to get some of them &lsquo;on
+board&rsquo;, in order to start spreading the word.</p>
+
+<p>A key ingredient to further the spread of F# in these communities is being able
+to use it without having to use the Windows operating system.</p>
+
+<p>I am hoping that my contribution will help this process along.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Martin Schinz</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2014-09-13T16:15:41+01:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>13</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>4:15 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/foundationdb/'>foundationdb</a>, <a class='category' href='/blog/categories/fsharp/'>fsharp</a>, <a class='category' href='/blog/categories/mono/'>mono</a>, <a class='category' href='/blog/categories/vagrant/'>vagrant</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://thinktainer.github.io/2014/09/13/a-vagrant-mono-box-to-explore-foundationdb-via-fsharp/" data-via="mschinz" data-counturl="http://thinktainer.github.io/2014/09/13/a-vagrant-mono-box-to-explore-foundationdb-via-fsharp/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2014/07/30/fixing-vmware-fusion-nokogiri-build-error/" title="Previous Post: Fixing vmware_fusion nokogiri build error">&laquo; Fixing vmware_fusion nokogiri build error</a>
+      
+      
+        <a class="basic-alignment right" href="/2015/06/03/running-ps-from-fake/" title="Next Post: Running Powershell from FAKE">Running Powershell from FAKE &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2017/02/11/dnsmasq-for-using-docker-service-containers-in-and-out-of-docker/">DNSMasq for Using Docker Service Containers in and Out of Docker</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2016/03/17/bridged-network-for-qemu-in-arch-using-systemd/">'Bridged Network for Qemu in Arch Using Systemd'</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2015/06/03/running-ps-from-fake/">Running Powershell From FAKE</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/09/13/a-vagrant-mono-box-to-explore-foundationdb-via-fsharp/">A Vagrant Mono Box to Explore FSharp on Linux</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/07/30/fixing-vmware-fusion-nokogiri-build-error/">Fixing Vmware_fusion Nokogiri Build Error</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/thinktainer">@thinktainer</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'thinktainer',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2017 - Martin Schinz -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

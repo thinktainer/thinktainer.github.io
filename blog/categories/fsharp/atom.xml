@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Fsharp | Braindump]]></title>
+  <link href="http://thinktainer.github.io/blog/categories/fsharp/atom.xml" rel="self"/>
+  <link href="http://thinktainer.github.io/"/>
+  <updated>2017-02-11T19:38:22+00:00</updated>
+  <id>http://thinktainer.github.io/</id>
+  <author>
+    <name><![CDATA[Martin Schinz]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[A Vagrant Mono Box to Explore FSharp on Linux]]></title>
+    <link href="http://thinktainer.github.io/2014/09/13/a-vagrant-mono-box-to-explore-foundationdb-via-fsharp/"/>
+    <updated>2014-09-13T16:15:41+01:00</updated>
+    <id>http://thinktainer.github.io/2014/09/13/a-vagrant-mono-box-to-explore-foundationdb-via-fsharp</id>
+    <content type="html"><![CDATA[<p>Today I am sharing a ubuntu-64 trusty <a href="http://www.vagrantup.com">Vagrant</a>
+<a href="https://vagrantcloud.com/thinktainer/boxes/trusty64-vmw-fsharp-foundationdb">box</a>
+in order to make it easy to get started with mono development on linux.</p>
+
+<p><strong>tl;dr</strong> <code>vagrant init thinktainer/trusty64-vmw-fsharp-foundationdb</code></p>
+
+<h2>Why I think it matters</h2>
+
+<p>I have recently become a big fan of Microsofts ML language
+<a href="http://www.fsharp.org">FSharp</a>. In my opinion one of the things that is holding
+wider adoption of it back is the lack of a good cross platform story, like what
+for instance <a href="http://clojure.org">clojure</a> or <a href="https://www.java.com/en/">java</a>
+have to offer. <em>Minor niggle here, about the story for ruby and python on
+Windows being far from great too.</em> One thing that has traditionally been painful
+is the fact that the <a href="http://www.mono-project.com">mono</a> runtime was a bit of a
+pain to get recent packages for. Without @tpokorras efforts with his high
+quality mono-opt packages for all major linux flavours it would have meant
+a developer would have needed to compile the runtime environment herself, in
+order to get a recent version on her machine (in a non-standard installation
+folder).  Obviously with the advent of <a href="http://xamarin.com">Xamarin</a>&rsquo;s great
+cross platform tools and those being based on the mono runtime things have
+started looking up a lot since then.</p>
+
+<h2>Microsoft wants us to use their languages and tools</h2>
+
+<p>I am convinced that the current trend for using linux as a .NET host is going to
+gain even more momentum. Microsoft may be interested in such a development due
+to the fact that Xamarin&rsquo;s cross platform story is a great way to channel people
+down to the Azure platform as the cloud provider of the services for these
+Xamarin apps. Another area where Microsoft is leaving the comfort zone of
+Windows and actively seeking cross platform support by their framework is
+<a href="http://www.asp.net/vnext">ASP.NET vNEXT</a>.  Again this may be useful for
+Microsoft if they manage to get people onto their cloud platform by offering a
+broader bandwith of choices, but in my opinion it is too early to tell if this is
+in fact a vaible assumption. Regardless of what we are able to observe now, I
+believe that Microsoft&rsquo;s cross platform efforts are going to be a great
+investment in the long run, as it will make their services and potentially
+devices more appealing to a wider audience of developers.</p>
+
+<h2>FSharp is the ugly duckling at Microsoft</h2>
+
+<p>Microsoft has one of if not the best solution for developing object orientated
+software on a vm, namely
+<a href="http://en.wikipedia.org/wiki/C_Sharp_(programming_language">CSharp</a>).  It has
+been widely adopted by the public sector and the enterprise. For hobbyists and
+&lsquo;recreational programmers&rsquo; not so much, at least that I&rsquo;m aware of. A great
+amount of resource at Microsoft is dedicated to the advancement, refinement and
+marketing of this tooling, and rightly so.</p>
+
+<p>The story for FSharp at Microsoft is different. One example where Microsoft was
+marketing C# and to an extent C++ and javascript was the
+<a href="http://www.buildwindows.com">Build</a> conference in 2014. During the whole
+conference there was not one single talk about F#. The tooling and integration
+support for using F# leaves a developer wanting in a number of places. The most
+obvious one in my opinion is that one has to ship the latest FSharp.Core
+libraries as a compiled artifact when trying to host applications using them in
+azure. These are windows boxes maintained by Microsoft, so it strikes me as odd
+that the F# framework on these boxes is not the latest version available to
+developers. There are more areas like sponsoring where Microsoft is hardly
+visible when it comes to promoting F#. I find it hard to find reasons for why F#
+is being left in the background to this extent. I am entertaining two possible
+explanations, which are both purely speculative and quite absurd.</p>
+
+<h2>This is great for the open source movement</h2>
+
+<p>Due to the relative apathy of Microsoft in regards to engaging with the
+community around FSharp, the community prospers. There is a number of problems
+that have been solved by the FSharp open source community in a manner of great
+technical excellence. Examples of this would be the number of highly useful type
+providers, data analysis solutions and parsers.</p>
+
+<p>The core language is open source, and accepting contributions from the
+community. This is big news for a language that was developed under the umbrella
+of a big corporate like Microsoft. Under the vision of Don Syme, who is not only
+the father of F#, but also responsible for some of the key features that make C#
+so attractive I believe there is a bright future for the language ahead.</p>
+
+<p>The lack of percievable involvement from Microsoft in the current affairs of the
+language makes it more palatable to people who feel an ingrained antipathy for
+whatever reasons for the company. There is a great number of fantastic
+programmers in this group, and it is a highly desirable to get some of them &lsquo;on
+board&rsquo;, in order to start spreading the word.</p>
+
+<p>A key ingredient to further the spread of F# in these communities is being able
+to use it without having to use the Windows operating system.</p>
+
+<p>I am hoping that my contribution will help this process along.</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Build | Braindump]]></title>
+  <link href="http://thinktainer.github.io/blog/categories/build/atom.xml" rel="self"/>
+  <link href="http://thinktainer.github.io/"/>
+  <updated>2017-02-11T19:38:22+00:00</updated>
+  <id>http://thinktainer.github.io/</id>
+  <author>
+    <name><![CDATA[Martin Schinz]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Ilmerge a .NET 4.5 Project]]></title>
+    <link href="http://thinktainer.github.io/2014/04/13/ilmerge-a-net-4-dot-5-project/"/>
+    <updated>2014-04-13T13:15:17+01:00</updated>
+    <id>http://thinktainer.github.io/2014/04/13/ilmerge-a-net-4-dot-5-project</id>
+    <content type="html"><![CDATA[<p>When packaging a console exe for easy deployment on a client machine I wanted to run ilmerge.exe recently. I have found that all it takes is to reference the right framework assemblies in the /targetplatform command line switch.
+The full command on my machine then looks like:
+<code>ps1 ilmerge for .NET 4.5
+ilmerge /t:exe /targetplatform:"v4,$env:windir\Microsoft.NET\Framework64\v4.0.30319" /lib:. /out:outname.exe .\inname.exe [additional-library.dll, ...]
+</code></p>
+]]></content>
+  </entry>
+  
+</feed>

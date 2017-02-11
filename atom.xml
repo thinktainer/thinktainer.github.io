@@ -1,106 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
 
-<!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>Braindump</title>
-  <meta name="author" content="Martin Schinz">
-
-  
-  <meta name="description" content="In order to be able to use services installed via docker-compose from both in-
-and outside of the docker network I have started using DNSMasq. This &hellip;">
-  
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  
-  <link rel="canonical" href="http://thinktainer.github.io/">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/atom.xml" rel="alternate" title="Braindump" type="application/atom+xml">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-49983907-1']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
-
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Braindump</a></h1>
-  
-    <h2>A place to keep my thoughts</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="https://www.google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="sitesearch" value="thinktainer.github.io">
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
-  
-  
-  
-    <article>
-      
-  <header>
+  <title><![CDATA[Braindump]]></title>
+  <link href="http://thinktainer.github.io/atom.xml" rel="self"/>
+  <link href="http://thinktainer.github.io/"/>
+  <updated>2017-02-11T19:38:04+00:00</updated>
+  <id>http://thinktainer.github.io/</id>
+  <author>
+    <name><![CDATA[Martin Schinz]]></name>
     
-      <h1 class="entry-title"><a href="/2017/02/11/dnsmasq-for-using-docker-service-containers-in-and-out-of-docker/">DNSMasq for Using Docker Service Containers in and Out of Docker</a></h1>
-    
-    
-      <p class="meta">
-        
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
 
-
-
-
-<time class='entry-date' datetime='2017-02-11T18:56:11+00:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>11</span><span class='date-suffix'>th</span>, <span class='date-year'>2017</span></span> <span class='time'>6:56 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>In order to be able to use services installed via <a href="https://docs.docker.com/compose/">docker-compose</a> from both in-
+  
+  <entry>
+    <title type="html"><![CDATA[DNSMasq for Using Docker Service Containers in and Out of Docker]]></title>
+    <link href="http://thinktainer.github.io/2017/02/11/dnsmasq-for-using-docker-service-containers-in-and-out-of-docker/"/>
+    <updated>2017-02-11T18:56:11+00:00</updated>
+    <id>http://thinktainer.github.io/2017/02/11/dnsmasq-for-using-docker-service-containers-in-and-out-of-docker</id>
+    <content type="html"><![CDATA[<p>In order to be able to use services installed via <a href="https://docs.docker.com/compose/">docker-compose</a> from both in-
 and outside of the docker network I have started using <a href="https://wiki.archlinux.org/index.php/dnsmasq">DNSMasq</a>. This
 lets me resolve hosts and services in the <code>.dev</code> domain from both inside and outside of the docker network. I have
 created a <a href="https://www.freedesktop.org/wiki/Software/systemd/">systemd</a> service definition, that starts DNSMasq after
@@ -150,35 +68,15 @@ resolv-file=/etc/dnsmasq-resolv.conf</code></pre></noscript></div>
 
 
 
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2016/03/17/bridged-network-for-qemu-in-arch-using-systemd/">'Bridged Network for Qemu in Arch Using Systemd'</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2016-03-17T14:55:40+00:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>17</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>2:55 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>The problem</h2>
+  <entry>
+    <title type="html"><![CDATA['Bridged Network for Qemu in Arch Using Systemd']]></title>
+    <link href="http://thinktainer.github.io/2016/03/17/bridged-network-for-qemu-in-arch-using-systemd/"/>
+    <updated>2016-03-17T14:55:40+00:00</updated>
+    <id>http://thinktainer.github.io/2016/03/17/bridged-network-for-qemu-in-arch-using-systemd</id>
+    <content type="html"><![CDATA[<h2>The problem</h2>
 
 <p>I want to run a windows virtual machine inside my <a href="https://www.archlinux.org/">arch
 linux</a> development laptop, in order to be able to
@@ -435,35 +333,15 @@ xfreerdp &quot;/w:3200&quot; &quot;/h:1800&quot; &quot;/f&quot; &quot;/u:Adminis
 <p>This is all, I hope someone finds this useful, I&rsquo;m mainly leaving it here for
 myself, to be able to repeat this in the future. Comments (particularly
 alternatives for the networknig) are very welcome.</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2015/06/03/running-ps-from-fake/">Running Powershell From FAKE</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2015-06-03T15:16:01+01:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2015</span></span> <span class='time'>3:16 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>At my job we had a requirement for connecting one of our systems to a new
+  <entry>
+    <title type="html"><![CDATA[Running Powershell From FAKE]]></title>
+    <link href="http://thinktainer.github.io/2015/06/03/running-ps-from-fake/"/>
+    <updated>2015-06-03T15:16:01+01:00</updated>
+    <id>http://thinktainer.github.io/2015/06/03/running-ps-from-fake</id>
+    <content type="html"><![CDATA[<p>At my job we had a requirement for connecting one of our systems to a new
 sql backend. As there are several other existing solutions in our code base that
 already do schema migrations and db initialization I didn&rsquo;t get to use
 <a href="http://dbup.github.io">dbup</a>, which would normally be my go to solution for
@@ -517,35 +395,15 @@ resolve this by changing them to <code>Write-Output</code>, after which the exce
 stopped for me.</p>
 
 <p>That is all.</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2014/09/13/a-vagrant-mono-box-to-explore-foundationdb-via-fsharp/">A Vagrant Mono Box to Explore FSharp on Linux</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2014-09-13T16:15:41+01:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>13</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>4:15 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Today I am sharing a ubuntu-64 trusty <a href="http://www.vagrantup.com">Vagrant</a>
+  <entry>
+    <title type="html"><![CDATA[A Vagrant Mono Box to Explore FSharp on Linux]]></title>
+    <link href="http://thinktainer.github.io/2014/09/13/a-vagrant-mono-box-to-explore-foundationdb-via-fsharp/"/>
+    <updated>2014-09-13T16:15:41+01:00</updated>
+    <id>http://thinktainer.github.io/2014/09/13/a-vagrant-mono-box-to-explore-foundationdb-via-fsharp</id>
+    <content type="html"><![CDATA[<p>Today I am sharing a ubuntu-64 trusty <a href="http://www.vagrantup.com">Vagrant</a>
 <a href="https://vagrantcloud.com/thinktainer/boxes/trusty64-vmw-fsharp-foundationdb">box</a>
 in order to make it easy to get started with mono development on linux.</p>
 
@@ -632,35 +490,15 @@ board&rsquo;, in order to start spreading the word.</p>
 to use it without having to use the Windows operating system.</p>
 
 <p>I am hoping that my contribution will help this process along.</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2014/07/30/fixing-vmware-fusion-nokogiri-build-error/">Fixing Vmware_fusion Nokogiri Build Error</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2014-07-30T19:24:27+01:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>30</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>7:24 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>When trying to install vagrant for the second time, I ran into an error about installing the nokogiri gem again. (This happened to me before, but I since forgot how I fixed it).
+  <entry>
+    <title type="html"><![CDATA[Fixing Vmware_fusion Nokogiri Build Error]]></title>
+    <link href="http://thinktainer.github.io/2014/07/30/fixing-vmware-fusion-nokogiri-build-error/"/>
+    <updated>2014-07-30T19:24:27+01:00</updated>
+    <id>http://thinktainer.github.io/2014/07/30/fixing-vmware-fusion-nokogiri-build-error</id>
+    <content type="html"><![CDATA[<p>When trying to install vagrant for the second time, I ran into an error about installing the nokogiri gem again. (This happened to me before, but I since forgot how I fixed it).
 Thank god nowadays there is <a href="http://stackoverflow.com">stackoverflow</a>, so a solution to most problems is never far away.
 This <a href="http://stackoverflow.com/a/23635023/672760">post</a> describes that one only needs to export an environment variable when trying to install the <a href="https://www.vagrantup.com/vmware">vagrant_fusion plugin</a>.</p>
 
@@ -668,70 +506,30 @@ This <a href="http://stackoverflow.com/a/23635023/672760">post</a> describes tha
 </code></pre>
 
 <p>I hope I remember I have posted this the next time I upgrade my mac.</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2014/04/13/ilmerge-a-net-4-dot-5-project/">Ilmerge a .NET 4.5 Project</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2014-04-13T13:15:17+01:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>13</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>1:15 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>When packaging a console exe for easy deployment on a client machine I wanted to run ilmerge.exe recently. I have found that all it takes is to reference the right framework assemblies in the /targetplatform command line switch.
+  <entry>
+    <title type="html"><![CDATA[Ilmerge a .NET 4.5 Project]]></title>
+    <link href="http://thinktainer.github.io/2014/04/13/ilmerge-a-net-4-dot-5-project/"/>
+    <updated>2014-04-13T13:15:17+01:00</updated>
+    <id>http://thinktainer.github.io/2014/04/13/ilmerge-a-net-4-dot-5-project</id>
+    <content type="html"><![CDATA[<p>When packaging a console exe for easy deployment on a client machine I wanted to run ilmerge.exe recently. I have found that all it takes is to reference the right framework assemblies in the /targetplatform command line switch.
 The full command on my machine then looks like:</p>
 
 <figure class='code'><figcaption><span>ilmerge for .NET 4.5</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='ps1'><span class='line'><span class="n">ilmerge</span> <span class="p">/</span><span class="n">t</span><span class="err">:</span><span class="n">exe</span> <span class="p">/</span><span class="n">targetplatform</span><span class="err">:</span><span class="s2">&quot;v4,$env:windir\Microsoft.NET\Framework64\v4.0.30319&quot;</span> <span class="p">/</span><span class="n">lib</span><span class="err">:</span><span class="p">.</span> <span class="p">/</span><span class="n">out</span><span class="err">:</span><span class="n">outname</span><span class="p">.</span><span class="n">exe</span> <span class="p">.\</span><span class="n">inname</span><span class="p">.</span><span class="n">exe</span> <span class="p">[</span><span class="n">additional-library</span><span class="p">.</span><span class="n">dll</span><span class="p">,</span> <span class="p">...]</span>
 </span></code></pre></td></tr></table></div></figure>
 
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2012/04/21/fixing-xen-daemon-on-a-laptop-with-nvidia-optimus-graphics/">Fixing Xen Daemon on a Laptop With Nvidia Optimus Graphics</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2012-04-21T17:12:12+01:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2012</span></span> <span class='time'>5:12 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>When I tried to install xen on my new Inspiron laptop (15R N5110) - I ran into a bit of trouble with the pci probing of the xend daemon. It has something to do with the capabilities of the pci devices going into a loop or not being able to handle 2 graphics adapters. I found a similar problem <a href="https://bugzilla.redhat.com/show_bug.cgi?format=multiple&amp;amp;id=767742">here</a> and the same patch worked for me. I am posting this here again, so I don&rsquo;t forget and other people can find it.
+  <entry>
+    <title type="html"><![CDATA[Fixing Xen Daemon on a Laptop With Nvidia Optimus Graphics]]></title>
+    <link href="http://thinktainer.github.io/2012/04/21/fixing-xen-daemon-on-a-laptop-with-nvidia-optimus-graphics/"/>
+    <updated>2012-04-21T17:12:12+01:00</updated>
+    <id>http://thinktainer.github.io/2012/04/21/fixing-xen-daemon-on-a-laptop-with-nvidia-optimus-graphics</id>
+    <content type="html"><![CDATA[<p>When I tried to install xen on my new Inspiron laptop (15R N5110) - I ran into a bit of trouble with the pci probing of the xend daemon. It has something to do with the capabilities of the pci devices going into a loop or not being able to handle 2 graphics adapters. I found a similar problem <a href="https://bugzilla.redhat.com/show_bug.cgi?format=multiple&amp;amp;id=767742">here</a> and the same patch worked for me. I am posting this here again, so I don&rsquo;t forget and other people can find it.
 The fix:</p>
 
 <div><script src='https://gist.github.com/2266335.js'></script>
@@ -793,35 +591,15 @@ PciDeviceParseError: Looped capability chain: 0000:01:00.0
 
 
 <p>Hope this helps.</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2011/07/21/recursively-rename-files-to-their-directory-name-and-keep-their-extension-in-windows-power-shell/">Recursively Rename Files to Their Directory Name and Keep Their Extension in Windows Power Shell</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2011-07-21T09:30:30+01:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2011</span></span> <span class='time'>9:30 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Just a quick one:</p>
+  <entry>
+    <title type="html"><![CDATA[Recursively Rename Files to Their Directory Name and Keep Their Extension in Windows Power Shell]]></title>
+    <link href="http://thinktainer.github.io/2011/07/21/recursively-rename-files-to-their-directory-name-and-keep-their-extension-in-windows-power-shell/"/>
+    <updated>2011-07-21T09:30:30+01:00</updated>
+    <id>http://thinktainer.github.io/2011/07/21/recursively-rename-files-to-their-directory-name-and-keep-their-extension-in-windows-power-shell</id>
+    <content type="html"><![CDATA[<p>Just a quick one:</p>
 
 
 <div><script src='https://gist.github.com/10581231.js'></script>
@@ -834,113 +612,7 @@ PciDeviceParseError: Looped capability chain: 0000:01:00.0
 
 
 
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
-</div>
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/2017/02/11/dnsmasq-for-using-docker-service-containers-in-and-out-of-docker/">DNSMasq for Using Docker Service Containers in and Out of Docker</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2016/03/17/bridged-network-for-qemu-in-arch-using-systemd/">'Bridged Network for Qemu in Arch Using Systemd'</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2015/06/03/running-ps-from-fake/">Running Powershell From FAKE</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2014/09/13/a-vagrant-mono-box-to-explore-foundationdb-via-fsharp/">A Vagrant Mono Box to Explore FSharp on Linux</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2014/07/30/fixing-vmware-fusion-nokogiri-build-error/">Fixing Vmware_fusion Nokogiri Build Error</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>GitHub Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating...</li>
-  </ul>
-  
-  <a href="https://github.com/thinktainer">@thinktainer</a> on GitHub
-  
-  <script type="text/javascript">
-    $(document).ready(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'thinktainer',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
-
-
-
-
-
-  
-</aside>
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2017 - Martin Schinz -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = '//platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
-</html>
+</feed>

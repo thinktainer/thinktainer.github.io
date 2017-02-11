@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Sysadmin | Braindump]]></title>
+  <link href="http://thinktainer.github.io/blog/categories/sysadmin/atom.xml" rel="self"/>
+  <link href="http://thinktainer.github.io/"/>
+  <updated>2017-02-11T19:38:22+00:00</updated>
+  <id>http://thinktainer.github.io/</id>
+  <author>
+    <name><![CDATA[Martin Schinz]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Recursively Rename Files to Their Directory Name and Keep Their Extension in Windows Power Shell]]></title>
+    <link href="http://thinktainer.github.io/2011/07/21/recursively-rename-files-to-their-directory-name-and-keep-their-extension-in-windows-power-shell/"/>
+    <updated>2011-07-21T09:30:30+01:00</updated>
+    <id>http://thinktainer.github.io/2011/07/21/recursively-rename-files-to-their-directory-name-and-keep-their-extension-in-windows-power-shell</id>
+    <content type="html"><![CDATA[<p>Just a quick one:</p>
+
+
+<p>{% gist 10581231 %}</p>
+
+<p>That's it.</p>
+
+
+
+]]></content>
+  </entry>
+  
+</feed>

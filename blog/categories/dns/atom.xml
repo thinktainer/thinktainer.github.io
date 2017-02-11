@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Dns | Braindump]]></title>
+  <link href="http://thinktainer.github.io/blog/categories/dns/atom.xml" rel="self"/>
+  <link href="http://thinktainer.github.io/"/>
+  <updated>2017-02-11T19:38:22+00:00</updated>
+  <id>http://thinktainer.github.io/</id>
+  <author>
+    <name><![CDATA[Martin Schinz]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[DNSMasq for Using Docker Service Containers in and Out of Docker]]></title>
+    <link href="http://thinktainer.github.io/2017/02/11/dnsmasq-for-using-docker-service-containers-in-and-out-of-docker/"/>
+    <updated>2017-02-11T18:56:11+00:00</updated>
+    <id>http://thinktainer.github.io/2017/02/11/dnsmasq-for-using-docker-service-containers-in-and-out-of-docker</id>
+    <content type="html"><![CDATA[<p>In order to be able to use services installed via <a href="https://docs.docker.com/compose/">docker-compose</a> from both in-
+and outside of the docker network I have started using <a href="https://wiki.archlinux.org/index.php/dnsmasq">DNSMasq</a>. This
+lets me resolve hosts and services in the <code>.dev</code> domain from both inside and outside of the docker network. I have
+created a <a href="https://www.freedesktop.org/wiki/Software/systemd/">systemd</a> service definition, that starts DNSMasq after
+the network comes up. It ties into <a href="https://roy.marples.name/projects/openresolv/index">openresolv</a>, so that the
+configuration survives dynamic network changes (like vpn). here are the config files:</p>
+
+<p><code>/etc/systemd/system/dnsmasq-tld-dev.service</code>
+{% gist 1797fad4e4de40e5087632eb3fcdcee7 dnsmasq-tld-dev.service title:&ldquo;hello&rdquo; %}</p>
+
+<p><code>/etc/resolvconf.conf</code>
+{% gist 1797fad4e4de40e5087632eb3fcdcee7 resolvconf.conf %}</p>
+
+<p><code>/etc/dnsmasq-tld-dev.conf</code>
+{% gist 1797fad4e4de40e5087632eb3fcdcee7 dnsmasq-tld-dev.conf %}</p>
+]]></content>
+  </entry>
+  
+</feed>

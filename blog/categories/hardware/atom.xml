@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Hardware | Braindump]]></title>
+  <link href="http://thinktainer.github.io/blog/categories/hardware/atom.xml" rel="self"/>
+  <link href="http://thinktainer.github.io/"/>
+  <updated>2017-02-11T19:38:22+00:00</updated>
+  <id>http://thinktainer.github.io/</id>
+  <author>
+    <name><![CDATA[Martin Schinz]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Fixing Xen Daemon on a Laptop With Nvidia Optimus Graphics]]></title>
+    <link href="http://thinktainer.github.io/2012/04/21/fixing-xen-daemon-on-a-laptop-with-nvidia-optimus-graphics/"/>
+    <updated>2012-04-21T17:12:12+01:00</updated>
+    <id>http://thinktainer.github.io/2012/04/21/fixing-xen-daemon-on-a-laptop-with-nvidia-optimus-graphics</id>
+    <content type="html"><![CDATA[<p>When I tried to install xen on my new Inspiron laptop (15R N5110) - I ran into a bit of trouble with the pci probing of the xend daemon. It has something to do with the capabilities of the pci devices going into a loop or not being able to handle 2 graphics adapters. I found a similar problem <a href="https://bugzilla.redhat.com/show_bug.cgi?format=multiple&amp;amp;id=767742">here</a> and the same patch worked for me. I am posting this here again, so I don&rsquo;t forget and other people can find it.
+The fix:
+{% gist 2266335 %}
+The error message:
+{% gist 2266378%}
+Hope this helps.</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Vmware | Braindump]]></title>
+  <link href="http://thinktainer.github.io/blog/categories/vmware/atom.xml" rel="self"/>
+  <link href="http://thinktainer.github.io/"/>
+  <updated>2017-02-11T19:38:22+00:00</updated>
+  <id>http://thinktainer.github.io/</id>
+  <author>
+    <name><![CDATA[Martin Schinz]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Fixing Vmware_fusion Nokogiri Build Error]]></title>
+    <link href="http://thinktainer.github.io/2014/07/30/fixing-vmware-fusion-nokogiri-build-error/"/>
+    <updated>2014-07-30T19:24:27+01:00</updated>
+    <id>http://thinktainer.github.io/2014/07/30/fixing-vmware-fusion-nokogiri-build-error</id>
+    <content type="html"><![CDATA[<p>When trying to install vagrant for the second time, I ran into an error about installing the nokogiri gem again. (This happened to me before, but I since forgot how I fixed it).
+Thank god nowadays there is <a href="http://stackoverflow.com">stackoverflow</a>, so a solution to most problems is never far away.
+This <a href="http://stackoverflow.com/a/23635023/672760">post</a> describes that one only needs to export an environment variable when trying to install the <a href="https://www.vagrantup.com/vmware">vagrant_fusion plugin</a>.</p>
+
+<pre><code>    NOKOGIRI_USE_SYSTEM_LIBRARIES=1 vagrant plugin install vagrant-vmware-fusion
+</code></pre>
+
+<p>I hope I remember I have posted this the next time I upgrade my mac.</p>
+]]></content>
+  </entry>
+  
+</feed>

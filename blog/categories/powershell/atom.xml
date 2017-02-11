@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Powershell | Braindump]]></title>
+  <link href="http://thinktainer.github.io/blog/categories/powershell/atom.xml" rel="self"/>
+  <link href="http://thinktainer.github.io/"/>
+  <updated>2017-02-11T19:38:22+00:00</updated>
+  <id>http://thinktainer.github.io/</id>
+  <author>
+    <name><![CDATA[Martin Schinz]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Running Powershell From FAKE]]></title>
+    <link href="http://thinktainer.github.io/2015/06/03/running-ps-from-fake/"/>
+    <updated>2015-06-03T15:16:01+01:00</updated>
+    <id>http://thinktainer.github.io/2015/06/03/running-ps-from-fake</id>
+    <content type="html"><![CDATA[<p>At my job we had a requirement for connecting one of our systems to a new
+sql backend. As there are several other existing solutions in our code base that
+already do schema migrations and db initialization I didn&rsquo;t get to use
+<a href="http://dbup.github.io">dbup</a>, which would normally be my go to solution for
+doing this kind of job in .NET.</p>
+
+<p>I&rsquo;m strongly convinced that being able to run the same build on the build server
+as on your local machine is a powerful thing, when it comes to troubleshooting
+issues with it. So I generally abstain from putting any logic of <em>how</em> to build
+on the build server, and rather let it figure out <em>when</em> to do it.
+So I was stuck with powershell, and I wanted to make the existing scripts with
+our build tool of choice: <a href="http://fsharp.github.io/FAKE/">FAKE</a>.</p>
+
+<p>It turned out to be quite a task, as all the libraries in the
+<a href="https://msdn.microsoft.com/en-us/library/System.Management.Automation(v=vs.85">System.Automation.Management</a>.aspx)
+namespace looked frighteningly unfamiliar, and were obscured with the typical
+windows security features that make it so hard to understand the usage patterns
+for a Microsoft Windows Framework. I&rsquo;m sure I&rsquo;ll have forgotten how to do this
+tomorrow, and I don&rsquo;t want to go through the process of piecing it together
+again, so I&rsquo;m adding this post for future reference.</p>
+
+<p>Here is the code:
+{% gist f75e4492cc193b4bd9d8 %}</p>
+
+<p>One thing that is noteworthy is that even though the framework threw an
+exception after the script&rsquo;s execution (which performed it&rsquo;s task perfectly),
+this didn&rsquo;t bubble up to FAKE, so it&rsquo;s not fit to stop the build in case of
+failure, at this point.</p>
+
+<p>One of the things that you need to address when executing powershell scripts in
+a non-interactive host, is that the <code>Write-Host</code> cmdlets you may be using will
+no longer work, as they&rsquo;re effectively trying to write to console. I was able to
+resolve this by changing them to <code>Write-Output</code>, after which the exceptions
+stopped for me.</p>
+
+<p>That is all.</p>
+]]></content>
+  </entry>
+  
+</feed>

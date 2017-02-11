@@ -1,0 +1,294 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>DNSMasq for Using Docker Service Containers in and Out of Docker - Braindump</title>
+  <meta name="author" content="Martin Schinz">
+
+  
+  <meta name="description" content="In order to be able to use services installed via docker-compose from both in-
+and outside of the docker network I have started using DNSMasq. This &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://thinktainer.github.io/2017/02/11/dnsmasq-for-using-docker-service-containers-in-and-out-of-docker/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Braindump" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-49983907-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Braindump</a></h1>
+  
+    <h2>A place to keep my thoughts</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="thinktainer.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">DNSMasq for Using Docker Service Containers in and Out of Docker</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2017-02-11T18:56:11+00:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>11</span><span class='date-suffix'>th</span>, <span class='date-year'>2017</span></span> <span class='time'>6:56 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>In order to be able to use services installed via <a href="https://docs.docker.com/compose/">docker-compose</a> from both in-
+and outside of the docker network I have started using <a href="https://wiki.archlinux.org/index.php/dnsmasq">DNSMasq</a>. This
+lets me resolve hosts and services in the <code>.dev</code> domain from both inside and outside of the docker network. I have
+created a <a href="https://www.freedesktop.org/wiki/Software/systemd/">systemd</a> service definition, that starts DNSMasq after
+the network comes up. It ties into <a href="https://roy.marples.name/projects/openresolv/index">openresolv</a>, so that the
+configuration survives dynamic network changes (like vpn). here are the config files:</p>
+
+<p><code>/etc/systemd/system/dnsmasq-tld-dev.service</code></p>
+
+<div><script src='https://gist.github.com/1797fad4e4de40e5087632eb3fcdcee7.js?file=dnsmasq-tld-dev.service'></script>
+<noscript><pre><code>[Unit]
+Description=DHCP server for local dev domain.
+Wants=network-online.target
+After=network.target network-online.target
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/dnsmasq -C /etc/dnsmasq-tld-dev.conf --pid-file=/var/run/dnsmasq-tld-dev.pid -u dnsmasq
+PIDFile=/var/run/dnsmasq-tld-dev.pid
+
+[Install]
+WantedBy=multi-user.target</code></pre></noscript></div>
+
+
+<p><code>/etc/resolvconf.conf</code></p>
+
+<div><script src='https://gist.github.com/1797fad4e4de40e5087632eb3fcdcee7.js?file=resolvconf.conf'></script>
+<noscript><pre><code># Configuration for resolvconf(8)
+# See resolvconf.conf(5) for details
+
+resolv_conf=/etc/resolv.conf
+# If you run a local name server, you should uncomment the below line and
+# configure your subscribers configuration files below.
+name_servers=127.0.0.1
+dnsmasq_resolv=/etc/dnsmasq-resolv.conf
+#
+#name_servers=8.8.8.8</code></pre></noscript></div>
+
+
+<p><code>/etc/dnsmasq-tld-dev.conf</code></p>
+
+<div><script src='https://gist.github.com/1797fad4e4de40e5087632eb3fcdcee7.js?file=dnsmasq-tld-dev.conf'></script>
+<noscript><pre><code>interface=lo
+bind-interfaces
+listen-address=127.0.0.1
+address=/dev/127.0.0.1
+resolv-file=/etc/dnsmasq-resolv.conf</code></pre></noscript></div>
+
+
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Martin Schinz</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2017-02-11T18:56:11+00:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>11</span><span class='date-suffix'>th</span>, <span class='date-year'>2017</span></span> <span class='time'>6:56 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/dns/'>dns</a>, <a class='category' href='/blog/categories/docker/'>docker</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://thinktainer.github.io/2017/02/11/dnsmasq-for-using-docker-service-containers-in-and-out-of-docker/" data-via="mschinz" data-counturl="http://thinktainer.github.io/2017/02/11/dnsmasq-for-using-docker-service-containers-in-and-out-of-docker/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2016/03/17/bridged-network-for-qemu-in-arch-using-systemd/" title="Previous Post: 'Bridged network for qemu in arch using systemd'">&laquo; 'Bridged network for qemu in arch using systemd'</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2017/02/11/dnsmasq-for-using-docker-service-containers-in-and-out-of-docker/">DNSMasq for Using Docker Service Containers in and Out of Docker</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2016/03/17/bridged-network-for-qemu-in-arch-using-systemd/">'Bridged Network for Qemu in Arch Using Systemd'</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2015/06/03/running-ps-from-fake/">Running Powershell From FAKE</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/09/13/a-vagrant-mono-box-to-explore-foundationdb-via-fsharp/">A Vagrant Mono Box to Explore FSharp on Linux</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/07/30/fixing-vmware-fusion-nokogiri-build-error/">Fixing Vmware_fusion Nokogiri Build Error</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/thinktainer">@thinktainer</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'thinktainer',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2017 - Martin Schinz -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
