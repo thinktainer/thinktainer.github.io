@@ -14,7 +14,7 @@ the network comes up. It ties into [openresolv](https://roy.marples.name/project
 configuration survives dynamic network changes (like vpn). here are the config files:
 
 `/etc/systemd/system/dnsmasq-tld-dev.service`
-{% gist 1797fad4e4de40e5087632eb3fcdcee7 dnsmasq-tld-dev.service %}
+{% gist 1797fad4e4de40e5087632eb3fcdcee7 dnsmasq-tld-dev.service title:"hello" %}
 
 `/etc/resolvconf.conf`
 {% gist 1797fad4e4de40e5087632eb3fcdcee7 resolvconf.conf %}
